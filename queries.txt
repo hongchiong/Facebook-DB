@@ -1,0 +1,31 @@
+SELECT * FROM users INNER JOIN friends ON (friends.users_id = users_id) WHERE users.id = 1;
+
+
+SELECT * FROM users INNER JOIN friends ON (friends.friend_id = users.id) WHERE friends.users_id = 1;
+
+SELECT * FROM users INNER JOIN friends ON (friends.users_id = users.id) WHERE friends.friend_id = 1;
+
+/* All My Friends */
+SELECT * FROM users INNER JOIN friends ON (friends.friend_id = users.id OR friends.users_id = users.id) WHERE (friends.users_id = 2 OR friends.friend_id = 2) AND users.id != 2;
+
+
+/* Users That Liked My Posts */
+SELECT * FROM users FULL OUTER JOIN posts ON (posts.users_id = users.id) INNER JOIN likes ON (likes.users_id = users.id) WHERE posts.users_id = 1;
+
+SELECT *
+    FROM users
+
+    FULL OUTER JOIN likes
+    ON (likes.users_id = users.id)
+
+    FULL OUTER JOIN posts
+    ON (posts.users_id = users.id)
+    WHERE  AND posts.users_id = 1;
+
+/* All Users That Liked Posts From A Certain User */
+SELECT users.name, users.email FROM likes
+    INNER JOIN posts
+    ON (likes.post_id = posts.id)
+    INNER JOIN users
+    ON (likes.users_id = users.id)
+    WHERE posts.users_id = 1;
